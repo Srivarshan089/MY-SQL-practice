@@ -1,0 +1,32 @@
+create database office;
+create table employee(
+    emp_id int primary key,
+	ename varchar(10),
+    salary int,
+    description varchar(10));
+#describe employee;
+insert into employee values
+    (1,"aaa","200000","admin"),
+    (2,"bbb","210000","manager"),
+    (3,"ccc","220000","hr"),
+    (4,"ddd","230000","developer"),
+    (5,"eee","3000000","tester"),
+    (6,"fff","270000","intern"),
+    (7,"ggg","310000","tester"),
+    (8,"hhh","320000","trainer"),
+    (9,"iii","340000","trainer"),
+    (10,"jjj","400000","attender");
+select * from employee where ename="aaa";
+select emp_id,ename, salary from employee where salary>320000;
+select emp_id,ename,salary from employee where salary>320000 and description="trainer";
+select * from employee where description in ("admin","hr");
+select * from employee where description ="admin" or description="hr";
+select * from employee where salary between 200000 and 400000;
+select * from employee where ename like 'a%';
+select * from employee where ename like 'b%a';
+select * from employee where ename like '%g';
+select * from employee where ename like '%i%';
+select * from employee where ename like '__h%';
+select * from employee order by salary;
+select * from employee order by salary asc;
+select * from employee order by salary desc;
