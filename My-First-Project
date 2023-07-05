@@ -1,0 +1,69 @@
+import mysql.connector
+db=mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="root",
+    database="StudentsDB"
+)
+def insert_Student():
+    cursor=db.cursor()
+    #Stu_Id=int(input("Enter the Student Id: "))
+    Stu_Name=input("Enter the Student Name: " )
+    Stu_Age=int(input("Enter the Student Age: "))
+    Gender=input("Enter the Student GEnder: ")
+    Course=input("Enter the Student Course: ")
+    query="Insert into Students(Stu_name,Stu_age,Gender,Course) values (%s,%s,%s,%s)"
+    values=(Stu_Name,Stu_Age,Gender,Course)
+    cursor.execute(query,values)
+    db.commit()
+    print("Students Record inserted successfully")
+def display_Students():
+    cursor=db.cursor()
+    cursor.execute("select*from Students")
+    result=cursor.fetchall()
+    for row in result:
+        print("Stu_Id :",row[0])
+        print("Stu_Name :",row[1])
+        print("Stu_Age: ",row[2])
+        print("Gender: ",row[3])
+        print("Course: ",row[4]) 
+        print("***************") 
+def update_Students():
+    cursor=db.cursor()
+    Stu_Id=int(input("Enter Student ID to Update :"))
+    Stu_Name=input("Enter the Updated name: ")  
+    Stu_Age=int(input("Enter the Updated Age:"))
+    Gender=input("ENter the Gender: ")
+    Course=input("Enter updated /Course: ")
+    query="Update Students set Stu_Name=%s,Stu_Age=%s,Gender=%s,Course=%s where stu_Id=%s"
+    values=(Stu_Name,Stu_Age,Gender,Course, Stu_Id)
+    cursor.execute(query,values)
+    db.commit()
+    print("$$$$$$$$$$$$$$$$$$$$$$$")
+def delete_Students():
+    cursor=db.cursor()
+    Stu_Id=int(input("Enter the Student Id to deleted: "))
+    query="Delete from Students where Stu_Id=%s"
+    values=(Stu_Id,)
+    cursor.execute(query,values)
+    db.commit()
+    print("StudentsId to be deleted: ")
+    print("^^^^^^^^^^^^^^^^^^^^^^^")
+    
+#main Program
+print("School Management")
+print("----------------------------")
+print("1) INSERTION   2)  DISPLAY    3)  UPDATION   4) DELETION")
+while True:
+    choice=int(input("Enter your Choice: "))
+    if choice==1:
+        insert_Student()
+    elif choice==2:
+        display_Students()
+    elif choice==3:
+        update_Students()
+    elif choice==4:
+        delete_Students()
+    else:
+        break;
+print()
